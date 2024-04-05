@@ -1,6 +1,6 @@
 export type RecordedMedia = {
   uid: string;
   name: string;
-  audioURI: string;
+  audioBlob: Blob;
   recordedAt: Date;
 };

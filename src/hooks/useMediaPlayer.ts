@@ -1,47 +1,70 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const useMediaPlayer = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [isRepeating, setIsRepeating] = useState<boolean>(true);
   const [state, setState] = useState<"idle" | "playing" | "paused">("idle");
-  const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
+  const [audioElement, setAudioElement] = useState<HTMLAudioElement | null>(null);
 
-  const setURL = (url: string) => {
-    if (!audio) {
-      const newAudio = new Audio(url);
-      setAudio(newAudio);
-      return;
-    }
+  useEffect(() => {
+    const init = async () => {
+      if (!audioElement) {
+        const a = new Audio();
+        a.loop = isRepeating;
+        setAudioElement(a);
+        setIsLoading(false);
+      }
+    };
+    init();
+  }, []);
 
-    audio.src = url;
-    audio.load();
-  };
+  const play = (url: string) => {
+    if (isLoading || !audioElement) throw new Error("audio element not ready");
 
-  const play = () => {
-    if (!audio) return;
-
-    audio.play();
+    audioElement.src = url;
+    audioElement.play();
     setState("playing");
   };
 
   const pause = () => {
-    if (!audio) return;
+    if (isLoading || !audioElement) throw new Error("audio element not ready");
+    if (state != "playing") return;
 
-    audio.pause();
+    audioElement.pause();
     setState("paused");
   };
 
-  const stop = () => {
-    if (!audio) return;
+  const resume = () => {
+    if (isLoading || !audioElement) throw new Error("audio element not ready");
+    if (state != "paused") return;
 
-    audio.pause();
-    audio.currentTime = 0;
+    audioElement.play();
+    setState("playing");
+  };
+
+  const stop = () => {
+    if (isLoading || !audioElement) throw new Error("audio element not ready");
+
+    audioElement.pause();
+    audioElement.currentTime = 0;
     setState("idle");
+  };
+
+  const toggleRepeat = () => {
+    if (isLoading || !audioElement) throw new Error("audio element not ready");
+
+    const newval = !isRepeating;
+    audioElement.loop = newval;
+    setIsRepeating(newval);
   };
 
   return {
     state,
-    setURL,
     play,
     pause,
+    resume,
     stop,
+
+    toggleRepeat,
   };
 };

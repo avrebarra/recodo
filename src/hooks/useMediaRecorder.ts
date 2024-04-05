@@ -1,38 +1,40 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const useMediaRecorder = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const [state, setState] = useState<"idle" | "recording" | "paused">("idle");
   const [mediaStream, setMediaStream] = useState<MediaStream | null>(null);
   const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(null);
-  const [recordedChunks, setRecordedChunks] = useState<Blob[]>([]);
 
-  const record = async (onAvailableURL: (url: string) => void) => {
-    try {
+  useEffect(() => {
+    const init = async () => {
       if (!mediaStream) {
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
         setMediaStream(stream);
+        setIsLoading(false);
       }
+    };
+    init();
+  }, []);
 
-      if (!mediaRecorder) {
-        const recorder = new MediaRecorder(mediaStream!);
+  const record = (onAvailableBlob: (b: Blob) => void) => {
+    try {
+      if (isLoading) throw new Error("recorder not ready");
+      let audioChunks: Blob[] = [];
 
-        recorder.ondataavailable = (event) => {
-          if (event.data.size > 0) {
-            setRecordedChunks([...recordedChunks, event.data]);
-          }
-        };
+      const recorder = new MediaRecorder(mediaStream!);
+      recorder.ondataavailable = (event) => {
+        audioChunks.push(event.data);
+      };
+      recorder.onstop = () => {
+        const audioBlob = new Blob(audioChunks, { type: "audio/wav" });
+        audioChunks = [];
+        onAvailableBlob(audioBlob);
+        setState("idle");
+      };
 
-        recorder.onstop = () => {
-          const audioBlob = new Blob(recordedChunks, { type: "audio/wav" });
-          const audioUrl = URL.createObjectURL(audioBlob);
-          onAvailableURL(audioUrl);
-          setState("idle");
-        };
-
-        setMediaRecorder(recorder);
-      }
-
-      mediaRecorder!.start();
+      recorder.start();
+      setMediaRecorder(recorder);
       setState("recording");
     } catch (error) {
       console.error("error recording:", error);
@@ -48,24 +50,13 @@ export const useMediaRecorder = () => {
 
   const resume = () => {
     if (!mediaRecorder || state !== "paused") return;
-
     mediaRecorder.resume();
     setState("recording");
   };
 
   const stop = () => {
     if (!mediaRecorder || state == "idle") return;
-
     mediaRecorder.stop();
-    setMediaStream(null);
-    setMediaRecorder(null);
-    setRecordedChunks([]);
-  };
-
-  const clearMedia = () => {
-    if (!mediaStream) return;
-    mediaStream.getTracks().forEach((track) => track.stop());
-    setMediaStream(null);
   };
 
   return {
@@ -74,6 +65,5 @@ export const useMediaRecorder = () => {
     pause,
     resume,
     stop,
-    clearMedia,
   };
 };

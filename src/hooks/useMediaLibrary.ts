@@ -21,25 +21,13 @@ export const useMediaLibrary = () => {
   const downloadItem = (uid: string) => {
     const mediaItem = list.find((media) => media.uid === uid);
     if (mediaItem) {
-      const link = document.createElement("a");
-      link.href = mediaItem.audioURI;
-      link.download = mediaItem.name;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      // const link = document.createElement("a");
+      // link.href = mediaItem.audioURI;
+      // link.download = mediaItem.name;
+      // document.body.appendChild(link);
+      // link.click();
+      // document.body.removeChild(link);
     }
-  };
-
-  const generatePlaceholderMediaName = () => {
-    function padZero(number: number, length: number) {
-      let str = number.toString();
-      while (str.length < length) {
-        str = "0" + str;
-      }
-      return str;
-    }
-
-    return `recording-${padZero(list.length + 1, 3)}`;
   };
 
   return {
@@ -48,6 +36,5 @@ export const useMediaLibrary = () => {
     updateItem,
     removeItem,
     downloadItem,
-    generatePlaceholderMediaName,
   };
 };
