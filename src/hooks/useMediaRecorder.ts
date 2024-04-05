@@ -64,7 +64,6 @@ export const useMediaRecorder = () => {
 
   const clearMedia = () => {
     if (!mediaStream) return;
-
     mediaStream.getTracks().forEach((track) => track.stop());
     setMediaStream(null);
   };
