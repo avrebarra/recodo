@@ -1,5 +1,5 @@
-# 🦜 echodio
+# 🦜 gaung
 
-Fun experiment project to mirror (or talk back) your voice.
+Fun experiment project for react voice recorder.
 
 Implemented using React + HTML5 MediaRecorder and audio playback feature.

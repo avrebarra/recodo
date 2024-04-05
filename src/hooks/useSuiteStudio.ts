@@ -10,7 +10,7 @@ export const useSuiteStudio = () => {
 
   const { record, pause, resume, stop } = useMediaRecorder();
   const { play } = useMediaPlayer();
-  const { list, addItem, updateItem, downloadItem, removeItem } = useMediaLibrary();
+  const { list, addItem } = useMediaLibrary();
 
   const generateMediaName = () => {
     function padZero(number: number, length: number) {
