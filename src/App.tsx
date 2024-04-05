@@ -1,7 +1,7 @@
-import { useSuiteGaung } from "./hooks/useSuiteGaung";
+import { useSuiteStudio } from "./hooks/useSuiteStudio";
 
 function App() {
-  const { startRecording, stopRecording } = useSuiteGaung();
+  const { startRecording, stopRecording } = useSuiteStudio();
   return (
     <>
       <div className="control">

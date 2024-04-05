@@ -5,7 +5,7 @@ import { useMediaRecorder } from "./useMediaRecorder";
 import { RecordedMedia } from "../types";
 import { useMediaPlayer } from "./useMediaPlayer";
 
-export const useSuiteGaung = () => {
+export const useSuiteStudio = () => {
   const [isEchoing, setIsEchoing] = useState<boolean>(true);
 
   const { record, pause, resume, stop } = useMediaRecorder();
