@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 export const useMediaPlayer = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [isRepeating, setIsRepeating] = useState<boolean>(true);
+  const [isRepeating, setIsRepeating] = useState(false);
   const [state, setState] = useState<"idle" | "playing" | "paused">("idle");
   const [audioElement, setAudioElement] = useState<HTMLAudioElement | null>(null);
 
@@ -11,6 +11,7 @@ export const useMediaPlayer = () => {
       if (!audioElement) {
         const a = new Audio();
         a.loop = isRepeating;
+        a.addEventListener("ended", () => setState("idle"));
         setAudioElement(a);
         setIsLoading(false);
       }

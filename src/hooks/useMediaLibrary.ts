@@ -21,12 +21,12 @@ export const useMediaLibrary = () => {
   const downloadItem = (uid: string) => {
     const mediaItem = list.find((media) => media.uid === uid);
     if (mediaItem) {
-      // const link = document.createElement("a");
-      // link.href = mediaItem.audioURI;
-      // link.download = mediaItem.name;
-      // document.body.appendChild(link);
-      // link.click();
-      // document.body.removeChild(link);
+      const { audioBlob, name } = mediaItem;
+      const blobUrl = URL.createObjectURL(audioBlob);
+      const link = document.createElement("a");
+      link.href = blobUrl;
+      link.download = name;
+      link.click();
     }
   };
 
