@@ -6,7 +6,10 @@ function App() {
     mediaList,
     currentMedia,
     currentMediaState,
+    currentRecordingState,
     startRecording,
+    pauseRecording,
+    resumeRecording,
     stopRecording,
     playMedia,
     pauseMedia,
@@ -24,13 +27,26 @@ function App() {
           <button type="button">stop</button>
         </div> */}
         <div className="recording-control">
-          <button type="button" onClick={startRecording}>
-            record
-          </button>
-          <button type="button">pause</button>
-          <button type="button" onClick={stopRecording}>
-            stop
-          </button>
+          <ShowOn condition={currentRecordingState == "idle"}>
+            <button type="button" onClick={startRecording}>
+              record
+            </button>
+          </ShowOn>
+          <ShowOn condition={currentRecordingState == "recording"}>
+            <button type="button" onClick={pauseRecording}>
+              pause
+            </button>
+          </ShowOn>
+          <ShowOn condition={currentRecordingState == "paused"}>
+            <button type="button" onClick={resumeRecording}>
+              resume
+            </button>
+          </ShowOn>
+          <ShowOn condition={currentRecordingState == "paused" || currentRecordingState == "recording"}>
+            <button type="button" onClick={stopRecording}>
+              stop
+            </button>
+          </ShowOn>
         </div>
       </div>
       <div className="library">

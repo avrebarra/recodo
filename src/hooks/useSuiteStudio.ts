@@ -68,6 +68,7 @@ export const useSuiteStudio = () => {
     mediaList: mediaLibrary.list,
     currentMedia,
     currentMediaState: mediaPlayer.state,
+    currentRecordingState: mediaRecorder.state,
 
     startRecording,
     pauseRecording: mediaRecorder.pause,
