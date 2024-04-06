@@ -83,6 +83,9 @@ export const useSuiteStudio = () => {
     removeMediaFromList: mediaLibrary.removeItem,
     downloadMedia: mediaLibrary.downloadItem,
 
+    isEchoing,
     toggleEcho,
+    isRepeating: mediaPlayer.isRepeating,
+    toggleRepeating: mediaPlayer.toggleRepeat,
   };
 };

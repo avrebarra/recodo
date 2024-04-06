@@ -66,6 +66,7 @@ export const useMediaPlayer = () => {
     resume,
     stop,
 
+    isRepeating,
     toggleRepeat,
   };
 };

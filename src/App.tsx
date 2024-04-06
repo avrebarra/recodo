@@ -17,6 +17,11 @@ function App() {
     stopMedia,
     removeMediaFromList,
     downloadMedia,
+
+    isEchoing,
+    toggleEcho,
+    isRepeating,
+    toggleRepeating,
   } = useSuiteStudio();
   return (
     <>
@@ -47,8 +52,14 @@ function App() {
               stop
             </button>
           </ShowOn>
+          <button type="button" onClick={toggleEcho}>
+            {isEchoing ? "disable echo" : "enable echo"}
+          </button>
         </div>
       </div>
+      <button type="button" onClick={toggleRepeating}>
+        {isRepeating ? "disable repeat" : "enable repeat"}
+      </button>
       <div className="library">
         {mediaList.map((e) => (
           <div key={`media-item-${e.uid}`} className="media-item">
