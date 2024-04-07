@@ -1,5 +1,5 @@
 import * as uuid from "uuid";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useMediaLibrary } from "./useMediaLibrary";
 import { useMediaRecorder } from "./useMediaRecorder";
 import { RecordedMedia } from "../types";
@@ -10,10 +10,17 @@ let autoIncrementID = 0;
 export const useSuiteStudio = () => {
   const [isEchoing, setIsEchoing] = useState(false);
   const [currentMedia, setCurrentMedia] = useState<string | null>(null);
+  const [queuedEcho, setQueuedEcho] = useState<string | null>(null);
 
   const mediaRecorder = useMediaRecorder();
   const mediaPlayer = useMediaPlayer();
   const mediaLibrary = useMediaLibrary();
+
+  useEffect(() => {
+    if (!queuedEcho) return;
+    playMedia(queuedEcho);
+    setQueuedEcho(null);
+  }, [queuedEcho]);
 
   const findMedia = (uid: string) => mediaLibrary.list.find((e) => e.uid == uid);
   const generateMediaName = () => {
@@ -52,9 +59,7 @@ export const useSuiteStudio = () => {
       };
       mediaLibrary.addItem(item);
 
-      if (isEchoing) {
-        mediaPlayer.play(item.audioBlobURL);
-      }
+      if (isEchoing) setQueuedEcho(item.uid);
     });
   };
 
