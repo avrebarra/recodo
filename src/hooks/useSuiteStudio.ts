@@ -43,6 +43,7 @@ export const useSuiteStudio = () => {
 
   const startRecording = () => {
     let startTime = Date.now();
+    mediaPlayer.stop();
     mediaRecorder.record(async (blob) => {
       if (!blob) throw new Error("no blob emitted");
 
