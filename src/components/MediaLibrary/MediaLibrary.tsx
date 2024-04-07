@@ -29,9 +29,9 @@ const MediaLibrary: React.FC<Props> = ({
       <ShowOn condition={mediaList.length === 0}>
         <EmptyState />
       </ShowOn>
-      <div className="overflow-y-auto space-y-5 pt-20">
+      <div className="space-y-2 pt-8">
         {mediaList.map((e) => (
-          <div key={`media-item-${e.uid}`}>
+          <div key={`media-item-${e.uid}`} className="border bg-white border-slate-50 px-5 py-3 rounded-lg">
             <MediaItem
               media={e}
               isCurrentMedia={currentMediaID === e.uid}

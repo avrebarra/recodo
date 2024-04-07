@@ -33,16 +33,16 @@ const MediaItem: React.FC<Props> = ({ media, isCurrentMedia, currentMediaState, 
   return (
     <div className="media-item flex flex-row justify-between">
       <div className="left flex flex-row space-x-4">
-        <div className="actions">
+        <div className="flex actions items-center">
           <ShowOn condition={!isCurrentMedia || currentMediaState === "idle"}>
-            <Button borderRadius={100} variant={"outline"} colorScheme="teal" height="48px" onClick={play}>
-              <FaPlay />
+            <Button borderRadius={100} variant={"outline"} colorScheme="teal" height="40px" onClick={play}>
+              <FaPlay className="h-3 w-3" />
             </Button>
           </ShowOn>
           <ShowOn condition={isCurrentMedia}>
             <ShowOn condition={currentMediaState === "playing" || currentMediaState === "paused"}>
               <Button borderRadius={100} variant={"outline"} colorScheme="teal" height="48px" onClick={stop}>
-                <FaStop />
+                <FaStop className="h-3 w-3" />
               </Button>
             </ShowOn>
           </ShowOn>
@@ -53,11 +53,11 @@ const MediaItem: React.FC<Props> = ({ media, isCurrentMedia, currentMediaState, 
         </div>
       </div>
       <div className="right flex flex-row items-center space-x-2">
-        <Button borderRadius={100} size={"sm"} height="44px" variant={"outline"} colorScheme="teal" onClick={removeMediaFromList}>
-          <RiDeleteBin6Fill className="h-5 w-5" />
+        <Button size={"sm"} variant={"solid"} colorScheme="gray" onClick={removeMediaFromList}>
+          <RiDeleteBin6Fill className="h-4 w-4" />
         </Button>
-        <Button borderRadius={100} size={"sm"} height="44px" variant={"outline"} colorScheme="teal" onClick={downloadMedia}>
-          <LuDownload className="h-5 w-5" />
+        <Button size={"sm"} variant={"solid"} colorScheme="gray" onClick={downloadMedia}>
+          <LuDownload className="h-4 w-4" />
         </Button>
       </div>
     </div>

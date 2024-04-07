@@ -35,7 +35,7 @@ function App() {
     <Layout>
       <ChakraProvider>
         <div className="min-h-screen flex flex-col">
-          <div className="py-2 px-4 flex-none sticky top-0 z-10"></div>
+          {/* <div className="py-2 px-4 flex-none sticky top-0 z-10"></div> */}
           <div className="flex flex-grow overflow-y-auto p-6">
             <MediaLibrary
               mediaList={mediaList}
@@ -50,9 +50,8 @@ function App() {
             />
           </div>
 
-          <div className="p-4 flex-none sticky bottom-0 z-10">
-            <div className="floater grid grid-cols-3 grid-rows-1 py-4 px-8 border border-slate-100 rounded-xl shadow-2xl shadow-slate-300 bg-white items-center">
-              <div></div>
+          <div className="p-4 flex flex-row justify-center sticky bottom-0 z-10">
+            <div className="floater grid grid-cols-2 py-4 px-8 border border-slate-100 rounded-xl shadow-2xl shadow-slate-300 bg-white items-center">
               <div className="mid justify-center">
                 <RecordingControl
                   state={currentRecordingState}
