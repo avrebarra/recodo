@@ -25,11 +25,11 @@ const MediaLibrary: React.FC<Props> = ({
   downloadMedia,
 }) => {
   return (
-    <div className="library flex flex-col space-y-5 w-full">
+    <div className="library flex flex-col w-full">
       <ShowOn condition={mediaList.length === 0}>
         <EmptyState />
       </ShowOn>
-      <div className="overflow-y-auto">
+      <div className="overflow-y-auto space-y-5 pt-20">
         {mediaList.map((e) => (
           <div key={`media-item-${e.uid}`}>
             <MediaItem

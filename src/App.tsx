@@ -4,6 +4,7 @@ import { PiBirdFill } from "react-icons/pi";
 import MediaLibrary from "./components/MediaLibrary";
 import RecordingControl from "./components/RecordingControl";
 import { useSuiteStudio } from "./hooks/useSuiteStudio";
+import Layout from "./components/Layout";
 
 function App() {
   const {
@@ -31,7 +32,7 @@ function App() {
     toggleRepeating,
   } = useSuiteStudio();
   return (
-    <>
+    <Layout>
       <ChakraProvider>
         <div className="min-h-screen flex flex-col">
           <div className="py-2 px-4 flex-none sticky top-0 z-10"></div>
@@ -50,7 +51,7 @@ function App() {
           </div>
 
           <div className="p-4 flex-none sticky bottom-0 z-10">
-            <div className="floater grid grid-cols-3 grid-rows-1 py-4 px-8 border border-slate-50 rounded-xl shadow-2xl shadow-slate-300 bg-white items-center">
+            <div className="floater grid grid-cols-3 grid-rows-1 py-4 px-8 border border-slate-100 rounded-xl shadow-2xl shadow-slate-300 bg-white items-center">
               <div></div>
               <div className="mid justify-center">
                 <RecordingControl
@@ -85,7 +86,7 @@ function App() {
           </div>
         </div>
       </ChakraProvider>
-    </>
+    </Layout>
   );
 }
 
