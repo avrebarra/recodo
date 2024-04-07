@@ -23,18 +23,19 @@ const MediaLibrary: React.FC<Props> = ({
   downloadMedia,
 }) => {
   return (
-    <div className="library">
+    <div className="library flex flex-col space-y-5">
       {mediaList.map((e) => (
-        <MediaItem
-          key={`media-item-${e.uid}`}
-          media={e}
-          isCurrentMedia={currentMediaID == e.uid}
-          currentMediaState={currentMediaState}
-          play={() => playMedia(e.uid)}
-          stop={stopMedia}
-          removeMediaFromList={() => removeMediaFromList(e.uid)}
-          downloadMedia={() => downloadMedia(e.uid)}
-        />
+        <div key={`media-item-${e.uid}`}>
+          <MediaItem
+            media={e}
+            isCurrentMedia={currentMediaID == e.uid}
+            currentMediaState={currentMediaState}
+            play={() => playMedia(e.uid)}
+            stop={stopMedia}
+            removeMediaFromList={() => removeMediaFromList(e.uid)}
+            downloadMedia={() => downloadMedia(e.uid)}
+          />
+        </div>
       ))}
     </div>
   );

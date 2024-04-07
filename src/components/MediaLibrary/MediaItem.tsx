@@ -1,9 +1,9 @@
 import { Button } from "@chakra-ui/react";
+import { FaPlay, FaStop } from "react-icons/fa";
+import { LuDownload } from "react-icons/lu";
+import { RiDeleteBin6Fill } from "react-icons/ri";
 import { RecordedMedia } from "../../types";
 import ShowOn from "../ShowOn";
-import { FaPause, FaPlay, FaStop } from "react-icons/fa";
-import { RiDeleteBin6Fill } from "react-icons/ri";
-import { LuDownload } from "react-icons/lu";
 
 interface Props {
   media: RecordedMedia;
@@ -36,13 +36,13 @@ const MediaItem: React.FC<Props> = ({ media, isCurrentMedia, currentMediaState, 
         <div className="left flex flex-row space-x-4">
           <div className="actions">
             <ShowOn condition={!isCurrentMedia || currentMediaState === "idle"}>
-              <Button borderRadius={100} height="48px" onClick={play}>
+              <Button borderRadius={100} variant={"outline"} colorScheme="teal" height="48px" onClick={play}>
                 <FaPlay />
               </Button>
             </ShowOn>
             <ShowOn condition={isCurrentMedia}>
               <ShowOn condition={currentMediaState === "playing" || currentMediaState === "paused"}>
-                <Button borderRadius={100} height="48px" onClick={stop}>
+                <Button borderRadius={100} variant={"outline"} colorScheme="teal" height="48px" onClick={stop}>
                   <FaStop />
                 </Button>
               </ShowOn>
@@ -54,8 +54,12 @@ const MediaItem: React.FC<Props> = ({ media, isCurrentMedia, currentMediaState, 
           </div>
         </div>
         <div className="right flex flex-row items-center space-x-2">
-          <RiDeleteBin6Fill className="h-5 w-5" onClick={() => removeMediaFromList()} />
-          <LuDownload className="h-5 w-5" onClick={() => downloadMedia()} />
+          <Button borderRadius={100} size={"sm"} height="44px" variant={"outline"} colorScheme="teal" onClick={removeMediaFromList}>
+            <RiDeleteBin6Fill className="h-5 w-5" />
+          </Button>
+          <Button borderRadius={100} size={"sm"} height="44px" variant={"outline"} colorScheme="teal" onClick={downloadMedia}>
+            <LuDownload className="h-5 w-5" />
+          </Button>
         </div>
       </div>
     </div>

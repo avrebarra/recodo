@@ -13,7 +13,7 @@ interface Props {
 const RecordingControl: React.FC<Props> = ({ state, start, pause, resume, stop }) => {
   return (
     <div className="control">
-      <div className="navbar flex justify-center shadow-lg shadow-slate-100 p-4 space-x-2">
+      <div className="navbar flex justify-center space-x-2">
         <ShowOn condition={state === "idle"}>
           <ControlButton primary={state === "idle"} icon={<FaCircle />} onClick={start} />
         </ShowOn>
@@ -23,8 +23,8 @@ const RecordingControl: React.FC<Props> = ({ state, start, pause, resume, stop }
         <ShowOn condition={state === "paused" || state === "recording"}>
           <ControlButton primary={state === "recording"} icon={<FaStop />} onClick={stop} />
         </ShowOn>
-        <ShowOn condition={state === "recording"}>
-          <ControlButton onClick={pause} icon={<FaPause />} />
+        <ShowOn condition={state !== "paused"}>
+          <ControlButton disabled={state !== "recording"} onClick={pause} icon={<FaPause />} />
         </ShowOn>
       </div>
     </div>

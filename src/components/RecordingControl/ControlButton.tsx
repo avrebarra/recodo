@@ -2,15 +2,23 @@ import { Button } from "@chakra-ui/react";
 
 interface Props {
   onClick: () => void;
+  disabled?: boolean;
   primary?: boolean;
   icon: React.ReactNode;
 }
 
-const PRIMARY_COLOR = "blue";
+const PRIMARY_COLOR = "teal";
 
-const ControlButton: React.FC<Props> = ({ onClick, primary, icon }) => {
+const ControlButton: React.FC<Props> = ({ onClick, disabled, primary, icon }) => {
   return (
-    <Button borderRadius={100} colorScheme={primary ? PRIMARY_COLOR : undefined} height="48px" onClick={onClick}>
+    <Button
+      isDisabled={disabled}
+      borderRadius={100}
+      colorScheme={primary ? PRIMARY_COLOR : undefined}
+      variant={primary ? undefined : "outline"}
+      height="48px"
+      onClick={onClick}
+    >
       {icon}
     </Button>
   );
