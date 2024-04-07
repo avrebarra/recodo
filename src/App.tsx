@@ -35,7 +35,7 @@ function App() {
       <ChakraProvider>
         <div className="min-h-screen flex flex-col">
           <div className="py-2 px-4 flex-none sticky top-0 z-10"></div>
-          <div className="flex-grow overflow-y-auto p-6">
+          <div className="flex flex-grow overflow-y-auto p-6">
             <MediaLibrary
               mediaList={mediaList}
               currentMediaID={currentMedia}

@@ -1,4 +1,6 @@
 import { RecordedMedia } from "../../types";
+import ShowOn from "../ShowOn";
+import EmptyState from "./EmptyState";
 import MediaItem from "./MediaItem";
 
 interface Props {
@@ -23,20 +25,25 @@ const MediaLibrary: React.FC<Props> = ({
   downloadMedia,
 }) => {
   return (
-    <div className="library flex flex-col space-y-5">
-      {mediaList.map((e) => (
-        <div key={`media-item-${e.uid}`}>
-          <MediaItem
-            media={e}
-            isCurrentMedia={currentMediaID == e.uid}
-            currentMediaState={currentMediaState}
-            play={() => playMedia(e.uid)}
-            stop={stopMedia}
-            removeMediaFromList={() => removeMediaFromList(e.uid)}
-            downloadMedia={() => downloadMedia(e.uid)}
-          />
-        </div>
-      ))}
+    <div className="library flex flex-col space-y-5 w-full">
+      <ShowOn condition={mediaList.length === 0}>
+        <EmptyState />
+      </ShowOn>
+      <div className="overflow-y-auto">
+        {mediaList.map((e) => (
+          <div key={`media-item-${e.uid}`}>
+            <MediaItem
+              media={e}
+              isCurrentMedia={currentMediaID === e.uid}
+              currentMediaState={currentMediaState}
+              play={() => playMedia(e.uid)}
+              stop={stopMedia}
+              removeMediaFromList={() => removeMediaFromList(e.uid)}
+              downloadMedia={() => downloadMedia(e.uid)}
+            />
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
