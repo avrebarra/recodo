@@ -3,5 +3,6 @@ export type RecordedMedia = {
   name: string;
   audioBlob: Blob;
   audioBlobURL: string;
+  duration: number;
   recordedAt: Date;
 };

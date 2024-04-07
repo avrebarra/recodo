@@ -16,7 +16,6 @@ export const useSuiteStudio = () => {
   const mediaLibrary = useMediaLibrary();
 
   const findMedia = (uid: string) => mediaLibrary.list.find((e) => e.uid == uid);
-
   const generateMediaName = () => {
     function padZero(number: number, length: number) {
       let str = number.toString();
@@ -36,13 +35,18 @@ export const useSuiteStudio = () => {
   };
 
   const startRecording = () => {
-    mediaRecorder.record((blob) => {
+    let startTime = Date.now();
+    mediaRecorder.record(async (blob) => {
       if (!blob) throw new Error("no blob emitted");
+
+      const endTime = Date.now();
+      const durationInSeconds = (endTime - startTime) / 1000;
 
       const item: RecordedMedia = {
         uid: uuid.v4(),
         audioBlob: blob,
         audioBlobURL: generateBlobURL(blob),
+        duration: durationInSeconds,
         name: generateMediaName(),
         recordedAt: new Date(),
       };

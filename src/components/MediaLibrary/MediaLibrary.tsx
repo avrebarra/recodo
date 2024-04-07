@@ -3,7 +3,7 @@ import MediaItem from "./MediaItem";
 
 interface Props {
   mediaList: RecordedMedia[];
-  currentMedia: string | null;
+  currentMediaID: string | null;
   currentMediaState: string;
   playMedia: (uid: string) => void;
   pauseMedia: () => void;
@@ -15,11 +15,9 @@ interface Props {
 
 const MediaLibrary: React.FC<Props> = ({
   mediaList,
-  currentMedia,
+  currentMediaID,
   currentMediaState,
   playMedia,
-  pauseMedia,
-  resumeMedia,
   stopMedia,
   removeMediaFromList,
   downloadMedia,
@@ -29,15 +27,13 @@ const MediaLibrary: React.FC<Props> = ({
       {mediaList.map((e) => (
         <MediaItem
           key={`media-item-${e.uid}`}
-          mediaItem={e}
-          currentMedia={currentMedia}
+          media={e}
+          isCurrentMedia={currentMediaID == e.uid}
           currentMediaState={currentMediaState}
-          playMedia={playMedia}
-          pauseMedia={pauseMedia}
-          resumeMedia={resumeMedia}
-          stopMedia={stopMedia}
-          removeMediaFromList={removeMediaFromList}
-          downloadMedia={downloadMedia}
+          play={() => playMedia(e.uid)}
+          stop={stopMedia}
+          removeMediaFromList={() => removeMediaFromList(e.uid)}
+          downloadMedia={() => downloadMedia(e.uid)}
         />
       ))}
     </div>
